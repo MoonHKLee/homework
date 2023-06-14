@@ -16,4 +16,13 @@ public class Products {
     public static ConcurrentHashMap<String, Product> getTable() {
         return productTable;
     }
+
+    public static boolean contains(String id) {
+        return productTable.containsKey(id);
+    }
+
+    public static void decreaseCount(String id, int count) {
+        Product product = productTable.get(id);
+        product.decreaseCount(count);
+    }
 }
