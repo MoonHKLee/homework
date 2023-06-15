@@ -7,13 +7,9 @@ public class Order {
     private static final int DELIVERY_FEE = 2500;
     public static final int DELIVERY_FREE_PRICE = 50_000;
     private final List<Product> list;
-    private int orderPrice;
-    private int totalPrice;
 
     public Order() {
         this.list = new ArrayList<>();
-        this.orderPrice = 0;
-        this.totalPrice = 0;
     }
 
     public void add(Product product) {

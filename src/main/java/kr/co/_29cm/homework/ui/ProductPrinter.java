@@ -2,7 +2,6 @@ package kr.co._29cm.homework.ui;
 
 import kr.co._29cm.homework.domain.Product;
 import kr.co._29cm.homework.domain.ProductRepository;
-import kr.co._29cm.homework.domain.Products;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

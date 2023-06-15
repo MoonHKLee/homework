@@ -10,12 +10,6 @@ import java.io.InputStreamReader;
 
 @Configuration
 public class Config {
-
-    @Bean
-    public ResourceLoader resourceLoader() {
-        return new DefaultResourceLoader();
-    }
-
     @Bean
     public BufferedReader bufferedReader() {
         return new BufferedReader(new InputStreamReader(System.in));
