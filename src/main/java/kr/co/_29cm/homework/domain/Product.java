@@ -1,6 +1,6 @@
 package kr.co._29cm.homework.domain;
 
-import kr.co._29cm.homework.SoldOutException;
+import kr.co._29cm.homework.exception.SoldOutException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

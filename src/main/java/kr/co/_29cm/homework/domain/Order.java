@@ -1,6 +1,6 @@
 package kr.co._29cm.homework.domain;
 
-import kr.co._29cm.homework.NoOrderException;
+import kr.co._29cm.homework.exception.NoOrderException;
 
 import java.util.ArrayList;
 import java.util.List;

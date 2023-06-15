@@ -1,7 +1,7 @@
 package kr.co._29cm.homework.controller;
 
-import kr.co._29cm.homework.NoOrderException;
-import kr.co._29cm.homework.SoldOutException;
+import kr.co._29cm.homework.exception.NoOrderException;
+import kr.co._29cm.homework.exception.SoldOutException;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.Product;
 import kr.co._29cm.homework.service.OrderService;
@@ -11,9 +11,7 @@ import kr.co._29cm.homework.ui.ProductPrinter;
 import kr.co._29cm.homework.ui.PromptPrinter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
