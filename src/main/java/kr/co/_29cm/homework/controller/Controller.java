@@ -14,7 +14,7 @@ import org.springframework.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @Component
 @RequiredArgsConstructor
@@ -26,8 +26,7 @@ public class Controller {
     public void run() throws IOException {
         do {
             try {
-                PromptPrinter.print();
-                String input = bufferedReader.readLine();
+                String input = PromptPrinter.getCommand(bufferedReader);
                 if (isQuitCommand(input)) {
                     PromptPrinter.printEndMessage();
                     break;
@@ -55,20 +54,17 @@ public class Controller {
 
     private void setUpOrderDataFromInput(Order order) throws IOException {
         while (true) {
-            PromptPrinter.printProductNumber();
-            String productId = bufferedReader.readLine();
+            String productId = PromptPrinter.getProductId(bufferedReader);
             if (isEmpty(productId)) {
                 break;
             }
-            Optional<Product> product = productService.findProductById(productId);
-            if (product.isEmpty()) {
+            try {
+                Product product = productService.findProductById(productId);
+                int count = PromptPrinter.getProductCount(bufferedReader);
+                order.add(new Product(productId, product.getName(), product.getPrice(), count));
+            } catch (NoSuchElementException e) {
                 ProductPrinter.printNoProduct();
-                continue;
             }
-            PromptPrinter.printProductCount();
-            int count = Integer.parseInt(bufferedReader.readLine());
-            Product newProduct = product.get();
-            order.add(new Product(productId, newProduct.getName(), newProduct.getPrice(), count));
         }
     }
 

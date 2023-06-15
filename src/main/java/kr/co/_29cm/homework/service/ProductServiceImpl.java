@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -14,8 +15,9 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Optional<Product> findProductById(String productId) {
-        return productRepository.findById(productId);
+    public Product findProductById(String productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(()-> new NoSuchElementException("상품이 존재하지 않습니다."));
     }
 
     @Override
