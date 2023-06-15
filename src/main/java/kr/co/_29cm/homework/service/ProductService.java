@@ -5,6 +5,6 @@ import kr.co._29cm.homework.domain.Product;
 import java.util.List;
 
 public interface ProductService {
-    Product findProductById(String productId);
+    Product getProductBy(String productId);
     List<Product> findAllProducts();
 }

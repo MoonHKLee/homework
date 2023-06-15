@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Order {
     private static final int DELIVERY_FEE = 2500;
-    public static final int DELIVERY_FREE_PRICE = 50_000;
+    private static final int DELIVERY_FREE_PRICE = 50_000;
     private final List<Product> list;
 
     public Order() {

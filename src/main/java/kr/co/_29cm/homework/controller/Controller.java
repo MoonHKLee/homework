@@ -60,7 +60,7 @@ public class Controller {
                 break;
             }
             try {
-                Product product = productService.findProductById(productId);
+                Product product = productService.getProductBy(productId);
                 int count = prompter.getProductCount();
                 order.add(new Product(productId, product.getName(), product.getPrice(), count));
             } catch (NoSuchElementException e) {

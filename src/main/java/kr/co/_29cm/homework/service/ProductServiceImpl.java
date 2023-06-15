@@ -14,7 +14,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Product findProductById(String productId) {
+    public Product getProductBy(String productId) {
         return productRepository.findById(productId)
                 .orElseThrow(()-> new NoSuchElementException("상품이 존재하지 않습니다."));
     }
