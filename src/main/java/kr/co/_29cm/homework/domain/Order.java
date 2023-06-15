@@ -1,5 +1,7 @@
 package kr.co._29cm.homework.domain;
 
+import kr.co._29cm.homework.NoOrderException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class Order {
     }
 
     public List<Product> getList() {
+        if (list.isEmpty())
+            throw new NoOrderException("주문 목록이 비어있습니다.");
         return list;
     }
 

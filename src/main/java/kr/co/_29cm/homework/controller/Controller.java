@@ -1,5 +1,6 @@
 package kr.co._29cm.homework.controller;
 
+import kr.co._29cm.homework.NoOrderException;
 import kr.co._29cm.homework.SoldOutException;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.Product;
@@ -19,16 +20,16 @@ import java.util.NoSuchElementException;
 @Component
 @RequiredArgsConstructor
 public class Controller {
-    private final BufferedReader bufferedReader;
+    private final PromptPrinter promptPrinter;
     private final OrderService orderService;
     private final ProductService productService;
 
     public void run() throws IOException {
         do {
             try {
-                String input = PromptPrinter.getCommand(bufferedReader);
+                String input = promptPrinter.getCommand();
                 if (isQuitCommand(input)) {
-                    PromptPrinter.printEndMessage();
+                    promptPrinter.printEndMessage();
                     break;
                 }
                 if (isOrderCommand(input)) {
@@ -38,8 +39,8 @@ public class Controller {
                     OrderPrinter.printPrice(order);
                     continue;
                 }
-                PromptPrinter.printWrongInput();
-            } catch (SoldOutException e) {
+                promptPrinter.printWrongInput();
+            } catch (SoldOutException | NoOrderException e) {
                 System.out.println(e.getMessage());
             }
         } while (true);
@@ -54,22 +55,18 @@ public class Controller {
 
     private void setUpOrderDataFromInput(Order order) throws IOException {
         while (true) {
-            String productId = PromptPrinter.getProductId(bufferedReader);
-            if (isEmpty(productId)) {
+            String productId = promptPrinter.getProductId();
+            if (productId.isEmpty()) {
                 break;
             }
             try {
                 Product product = productService.findProductById(productId);
-                int count = PromptPrinter.getProductCount(bufferedReader);
+                int count = promptPrinter.getProductCount();
                 order.add(new Product(productId, product.getName(), product.getPrice(), count));
             } catch (NoSuchElementException e) {
-                ProductPrinter.printNoProduct();
+                System.out.println(e.getMessage());
             }
         }
-    }
-
-    private boolean isEmpty(String id) {
-        return !StringUtils.hasText(id.trim());
     }
 
     private boolean isQuitCommand(String input) {
