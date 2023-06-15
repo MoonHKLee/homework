@@ -1,6 +1,6 @@
 ## 사용기술
 - SpringBoot 2.7.12
-- SpringDataJdbc
+- SpringDataJpa
 - h2-database
 - gradle
 
