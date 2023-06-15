@@ -4,22 +4,19 @@ import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.Product;
 import kr.co._29cm.homework.domain.ProductRepository;
 import kr.co._29cm.homework.exception.SoldOutException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-class OrderServiceImplTest {
+class OrderServiceTest {
     @Autowired
     private OrderService orderService;
     @Autowired

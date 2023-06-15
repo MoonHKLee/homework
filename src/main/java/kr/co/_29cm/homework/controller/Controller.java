@@ -70,7 +70,7 @@ public class Controller {
     }
 
     private boolean isQuitCommand(String input) {
-        return input.equals("q");
+        return input.equals("q")||input.equals("quit");
     }
 
     private boolean isOrderCommand(String input) {
