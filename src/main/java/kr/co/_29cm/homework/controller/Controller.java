@@ -1,5 +1,6 @@
-package kr.co._29cm.homework;
+package kr.co._29cm.homework.controller;
 
+import kr.co._29cm.homework.SoldOutException;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.Product;
 import kr.co._29cm.homework.service.OrderService;

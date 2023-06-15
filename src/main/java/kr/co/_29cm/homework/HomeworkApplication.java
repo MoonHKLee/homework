@@ -1,5 +1,6 @@
 package kr.co._29cm.homework;
 
+import kr.co._29cm.homework.controller.Controller;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
