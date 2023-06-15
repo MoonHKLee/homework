@@ -18,7 +18,7 @@ public class Order {
         if (list.contains(product)) {
             int index = list.indexOf(product);
             Product origin = list.get(index);
-            origin.addCount(product.getCount());
+            origin.increaseCount(product.getCount());
             return;
         }
         list.add(product);

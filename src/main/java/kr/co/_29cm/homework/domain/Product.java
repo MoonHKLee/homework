@@ -3,14 +3,16 @@ package kr.co._29cm.homework.domain;
 import kr.co._29cm.homework.exception.SoldOutException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Product {
     @Id
     private String id;
@@ -18,7 +20,7 @@ public class Product {
     private int price;
     private int count;
 
-    public void addCount(int count) {
+    public void increaseCount(int count) {
         this.count += count;
     }
 
