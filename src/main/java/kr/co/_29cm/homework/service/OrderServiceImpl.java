@@ -5,6 +5,7 @@ import kr.co._29cm.homework.domain.Product;
 import kr.co._29cm.homework.domain.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final ProductRepository productRepository;
     @Override
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void order(Order order) {
         List<Product> list = order.getList();
         list.forEach(this::updateCount);

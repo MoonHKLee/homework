@@ -42,6 +42,16 @@ class ProductTest {
     }
 
     @Test
+    void decreaseCount_재고부족_멀티쓰레드() {
+        //given
+        Product product = new Product("1","product1", 1000, 10);
+
+        //then
+        assertThatCode(() -> product.decreaseCount(11))
+                .hasMessage("SoldOutException 발생. 주문한 상품량이 재고량보다 큽니다.");
+    }
+
+    @Test
     void product_hashcode() {
         //given
         Product product1 = new Product("1","product1", 1000, 10);
