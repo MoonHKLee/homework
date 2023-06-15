@@ -2,8 +2,8 @@ package kr.co._29cm.homework;
 
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.Product;
-import kr.co._29cm.homework.domain.ProductRepository;
 import kr.co._29cm.homework.service.OrderService;
+import kr.co._29cm.homework.service.ProductService;
 import kr.co._29cm.homework.ui.OrderPrinter;
 import kr.co._29cm.homework.ui.ProductPrinter;
 import kr.co._29cm.homework.ui.PromptPrinter;
@@ -20,30 +20,27 @@ import java.util.Optional;
 public class Controller {
     private final BufferedReader bufferedReader;
     private final OrderService orderService;
-    private final ProductRepository productRepository;
-    private final ProductPrinter productPrinter;
-    private final PromptPrinter promptPrinter;
-    private final OrderPrinter orderPrinter;
+    private final ProductService productService;
 
     public void run() throws IOException {
         do {
             try {
-                promptPrinter.print();
+                PromptPrinter.print();
                 String input = bufferedReader.readLine();
                 if (isQuitCommand(input)) {
-                    promptPrinter.printEndMessage();
+                    PromptPrinter.printEndMessage();
                     break;
                 }
                 if (isOrderCommand(input)) {
-                    productPrinter.print();
+                    ProductPrinter.printList(productService.findAllProducts());
                     Order order = new Order();
                     setUpOrderDataFromInput(order);
                     orderService.order(order);
-                    orderPrinter.printList(order);
-                    orderPrinter.printPrice(order);
+                    OrderPrinter.printList(order);
+                    OrderPrinter.printPrice(order);
                     continue;
                 }
-                promptPrinter.printWrongInput();
+                PromptPrinter.printWrongInput();
             } catch (SoldOutException e) {
                 System.out.println(e.getMessage());
             }
@@ -52,17 +49,17 @@ public class Controller {
 
     private void setUpOrderDataFromInput(Order order) throws IOException {
         while (true) {
-            promptPrinter.printProductNumber();
+            PromptPrinter.printProductNumber();
             String productId = bufferedReader.readLine();
             if (isEmpty(productId)) {
                 break;
             }
-            Optional<Product> product = productRepository.findById(productId);
+            Optional<Product> product = productService.findProductById(productId);
             if (product.isEmpty()) {
-                productPrinter.printNoProduct();
+                ProductPrinter.printNoProduct();
                 continue;
             }
-            promptPrinter.printProductCount();
+            PromptPrinter.printProductCount();
             int count = Integer.parseInt(bufferedReader.readLine());
             Product newProduct = product.get();
             order.add(new Product(productId, newProduct.getName(), newProduct.getPrice(), count));

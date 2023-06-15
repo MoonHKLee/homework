@@ -2,13 +2,11 @@ package kr.co._29cm.homework.ui;
 
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.Product;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class OrderPrinter {
-    public void printList(Order order) {
+    public static void printList(Order order) {
         System.out.println("주문내역:");
         System.out.println("--------------------------------------------");
         List<Product> list = order.getList();
@@ -16,7 +14,7 @@ public class OrderPrinter {
         System.out.println("--------------------------------------------");
     }
 
-    public void printPrice(Order order) {
+    public static void printPrice(Order order) {
         System.out.println("주문금액: " + getPriceFormat(order.getOrderPrice())+"원");
         if (!order.isFreeDelivery()) {
             System.out.println("배송비: " + getPriceFormat(order.getDeliveryFee())+"원");
@@ -26,7 +24,7 @@ public class OrderPrinter {
         System.out.println("--------------------------------------------");
     }
 
-    private String getPriceFormat(int price) {
+    private static String getPriceFormat(int price) {
         return String.format("%,d", price);
     }
 }
