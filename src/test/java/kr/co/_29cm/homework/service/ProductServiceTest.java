@@ -4,6 +4,7 @@ import kr.co._29cm.homework.domain.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -39,12 +40,13 @@ class ProductServiceTest {
     }
 
     @Test
+    @Sql(scripts = "classpath:addProduct.sql")
     void findAllProducts() {
         //when
         List<Product> products = productService.findAllProducts();
 
         //then
-        assertThat(products.size()).isEqualTo(19);
+        assertThat(products.size()).isEqualTo(20);
 
     }
 }

@@ -14,9 +14,6 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
@@ -56,31 +53,31 @@ class OrderServiceTest {
 
     }
 
-//    @Test
-//    @Sql(scripts = "classpath:addProduct.sql")
-//    void order_멀티쓰레드_수량_정상_감소() throws InterruptedException {
-//        int threadCount = 100;
-//        ExecutorService executorService = Executors.newFixedThreadPool(32);
-//        CountDownLatch latch = new CountDownLatch(threadCount);
-//        for (int i = 0; i < threadCount; i++) {
-//            executorService.submit(() -> {
-//                        try {
-//                            performTask();
-//                        }
-//                        finally {
-//                            latch.countDown();
-//                        }
-//                    }
-//            );
-//        }
-//
-//        latch.await();
-//
-//        //then
-//        Product product = productRepository.findById("111111")
-//                .orElseThrow(NoSuchElementException::new);
-//        assertThat(product.getCount()).isEqualTo(900);
-//    }
+    @Test
+    @Sql(scripts = "classpath:addProduct.sql")
+    void order_멀티쓰레드_수량_정상_감소() throws InterruptedException {
+        int threadCount = 1000;
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch latch = new CountDownLatch(threadCount);
+        for (int i = 0; i < threadCount; i++) {
+            executorService.submit(() -> {
+                        try {
+                            performTask();
+                        }
+                        finally {
+                            latch.countDown();
+                        }
+                    }
+            );
+        }
+
+        latch.await();
+
+        //then
+        Product product = productRepository.findById("111111")
+                .orElseThrow(NoSuchElementException::new);
+        assertThat(product.getCount()).isEqualTo(0);
+    }
 
     private void performTask() {
         Order order = new Order();
