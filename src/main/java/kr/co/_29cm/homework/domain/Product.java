@@ -1,5 +1,6 @@
 package kr.co._29cm.homework.domain;
 
+import kr.co._29cm.homework.SoldOutException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,10 +35,9 @@ public class Product {
         return Objects.hash(id);
     }
 
-    public synchronized void decreaseCount(int count) {
+    public void decreaseCount(int count) {
         if (this.count < count) {
-            System.out.println("SoldOutException 발생. 주문한 상품량이 재고량보다 큽니다.");
-            return;
+            throw new SoldOutException("SoldOutException 발생. 주문한 상품량이 재고량보다 큽니다.");
         }
         this.count -= count;
     }

@@ -44,7 +44,7 @@ public class Controller {
                     continue;
                 }
                 promptPrinter.printWrongInput();
-            } catch (IllegalArgumentException e) {
+            } catch (SoldOutException e) {
                 System.out.println(e.getMessage());
             }
         } while (true);

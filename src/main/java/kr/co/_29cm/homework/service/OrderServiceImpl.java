@@ -5,6 +5,7 @@ import kr.co._29cm.homework.domain.Product;
 import kr.co._29cm.homework.domain.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,7 +14,14 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final ProductRepository productRepository;
     @Override
+    @Transactional
     public void order(Order order) {
-        List<Product> all = (List<Product>)productRepository.findAll();
+        List<Product> list = order.getList();
+        list.forEach(v -> {
+            Product product = productRepository.findById(v.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
+            product.decreaseCount(v.getCount());
+            productRepository.save(product);
+        });
     }
 }
