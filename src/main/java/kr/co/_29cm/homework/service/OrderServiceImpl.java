@@ -17,11 +17,13 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void order(Order order) {
         List<Product> list = order.getList();
-        list.forEach(v -> {
-            Product product = productRepository.findById(v.getId())
-                    .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
-            product.decreaseCount(v.getCount());
-            productRepository.save(product);
-        });
+        list.forEach(this::updateCount);
+    }
+
+    private void updateCount(Product v) {
+        Product product = productRepository.findById(v.getId())
+                .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
+        product.decreaseCount(v.getCount());
+        productRepository.save(product);
     }
 }

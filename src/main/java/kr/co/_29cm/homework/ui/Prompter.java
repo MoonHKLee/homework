@@ -2,14 +2,13 @@ package kr.co._29cm.homework.ui;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class PromptPrinter {
+public class Prompter {
     private final BufferedReader bufferedReader;
     public String getCommand() throws IOException {
         System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
@@ -32,9 +31,5 @@ public class PromptPrinter {
 
     public void printWrongInput() {
         System.out.println("잘못된 입력입니다.");
-    }
-
-    private boolean isEmpty(String id) {
-        return !StringUtils.hasText(id.trim());
     }
 }
