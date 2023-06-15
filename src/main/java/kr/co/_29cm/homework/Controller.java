@@ -33,9 +33,7 @@ public class Controller {
                 }
                 if (isOrderCommand(input)) {
                     ProductPrinter.printList(productService.findAllProducts());
-                    Order order = new Order();
-                    setUpOrderDataFromInput(order);
-                    orderService.order(order);
+                    Order order = order();
                     OrderPrinter.printList(order);
                     OrderPrinter.printPrice(order);
                     continue;
@@ -45,6 +43,13 @@ public class Controller {
                 System.out.println(e.getMessage());
             }
         } while (true);
+    }
+
+    private Order order() throws IOException {
+        Order order = new Order();
+        setUpOrderDataFromInput(order);
+        orderService.order(order);
+        return order;
     }
 
     private void setUpOrderDataFromInput(Order order) throws IOException {
@@ -66,7 +71,7 @@ public class Controller {
         }
     }
 
-    private static boolean isEmpty(String id) {
+    private boolean isEmpty(String id) {
         return !StringUtils.hasText(id.trim());
     }
 
