@@ -40,4 +40,14 @@ class ProductTest {
         assertThatCode(() -> product.decreaseCount(11))
                 .hasMessage("SoldOutException 발생. 주문한 상품량이 재고량보다 큽니다.");
     }
+
+    @Test
+    void product_hashcode() {
+        //given
+        Product product1 = new Product("1","product1", 1000, 10);
+        Product product2 = new Product("1","product2", 1002, 100);
+
+        //then
+        assertThat(product1.hashCode()).isEqualTo(product2.hashCode());
+    }
 }
